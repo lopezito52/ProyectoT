@@ -14,11 +14,12 @@ function Dark_mode() {
     }
 
     return (
-        <div className="bg-yellow-">
-            <button onClick={()=> darkModeHandler()}>
+        <div className="bg-yellow">
+            <button className=" flex justify-center border-2 w-20" onClick={()=> darkModeHandler()}>
                 {
                     
-                    dark && <IoSunny />
+                    dark && <IoSunny className="text-white" />
+
                 }
                 {
                     !dark && <IoMoon />
