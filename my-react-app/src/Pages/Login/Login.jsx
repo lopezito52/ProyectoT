@@ -5,6 +5,7 @@ import { Titulos } from "../../Components/Titulos";
 import { Subitulos } from "../../Components/Subtitulos";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext"; 
+import loginUser from "../../Logic/loginUser";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,13 +19,19 @@ export default function Login() {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    if (data.Email === "admin@admin.com" && data.password === "admin") {
-      login(); 
-      navigate("/", { replace: true });
-      reset();
-    } else {
-      setError("Credenciales incorrectas");
+  const onSubmit = async (data) => {
+    try {
+      const response = await loginUser(data.Email, data.password);
+      console.log(response); 
+      if (response === 'Success') {
+        navigate("/", { replace: true });
+        reset();
+      } else {
+        setError("Credenciales incorrectas");
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      setError("Ocurrió un error al iniciar sesión");
     }
   };
 
