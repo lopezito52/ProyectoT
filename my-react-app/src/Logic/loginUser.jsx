@@ -1,16 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
 const loginUser = async (email, password) => {
   try {
-    const response = await axios.post('http://localhost:3000/users/login', { // Corrige la URL de la solicitud
-      email: email,
-      password: password
+    const response = await axios.post("http://localhost:4000/login", {
+      email,
+      password,
     });
-    return response.data; // Devuelve la respuesta del servidor, por ejemplo, 'Success' o 'Not allowed'
+    return response.data;
   } catch (error) {
-    console.error('Error:', error);
-    throw error; // Manejo de errores
+    console.error("Error al iniciar sesión:", error);
+    return { error: "Error al iniciar sesión" };
   }
-}
+};
 
 export default loginUser;
